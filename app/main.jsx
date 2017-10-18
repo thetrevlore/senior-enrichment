@@ -41,7 +41,7 @@ export default class Main extends React.Component {
           <Route path="/home" component={Home}/>
           <Route exact path="/campuses" render={()=><AllCampuses campuses={campuses}/>}/>
           <Route path={`/campuses/:campusId`} render={(props)=><SingleCampus {...props} allStudents={students} />}/>
-          <Route exact path="/students" render={()=> <AllStudents students={students} />}/>
+          <Route exact path="/students" render={()=> <AllStudents students={students} campuses={campuses} />}/>
           <Route path={`/students/:studentId`} component={SingleStudent}/>
         </Switch>
       </div>

@@ -4,16 +4,30 @@ import { Link } from 'react-router-dom';
 
 export default function AllStudents(props) {
   const students = props.students;
+  const campuses = props.campuses;
   return (
     <div>
       <h1>All Students</h1>
-      <ul>
-      {
-        students.map((student)=>{
-          return <li key={student.id}><Link to={`/students/${student.id}`}>{student.name}</Link></li>
-        })
-      }
-      </ul>
+      <tbody>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Campus</th>
+        </tr>
+        {
+          students.map((student)=>{
+            let campus = campuses.find((campus) => campus.id === student.campusId);
+            return (
+              <tr key={student.id}>
+                <th>{student.id}</th>
+                <th><Link to={`/students/${student.id}`}>{student.name}</Link></th>
+                <th><Link to={`/campuses/${campus.id}`}>{campus.name}</Link></th>
+                <th><button>Delete</button></th>
+              </tr>
+            )
+          })
+        }
+      </tbody>
     </div>
   )
 }
