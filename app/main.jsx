@@ -9,7 +9,7 @@ import AllStudents from './components/AllStudents';
 import SingleCampus from './components/SingleCampus';
 import SingleStudent from './components/SingleStudent';
 
-import { fetchCampuses } from './reducers/campusReducer';
+import { fetchCampuses, removeCampus } from './reducers/campusReducer';
 import { fetchStudents, removeStudent } from './reducers/studentReducer';
 import store from './store';
 
@@ -21,13 +21,21 @@ export default class Main extends React.Component {
   }
 
   componentDidMount() {
-    this.stateUnsubscribe = store.subscribe(()=>this.setState(store.getState()));
+    this.unsubscribe = store.subscribe(()=>this.setState(store.getState()));
     store.dispatch(fetchCampuses());
     store.dispatch(fetchStudents());
   }
 
   componentWillUnmount() {
-    this.stateUnsubscribe();
+    this.unsubscribe();
+  }
+
+  handleStudentDelete(student) {
+    store.dispatch(removeStudent(student));
+  }
+
+  handleCampusDelete(campus) {
+    store.dispatch(removeCampus(campus));
   }
 
   render() {
@@ -39,9 +47,9 @@ export default class Main extends React.Component {
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path="/home" component={Home}/>
-          <Route exact path="/campuses" render={()=><AllCampuses campuses={campuses}/>}/>
+          <Route exact path="/campuses" render={()=><AllCampuses campuses={campuses} handleCampusDelete={this.handleCampusDelete}/>}/>
           <Route path="/campuses/:campusId" render={(props)=><SingleCampus {...props} allStudents={students} />}/>
-          <Route exact path="/students" render={()=> <AllStudents students={students} campuses={campuses} />}/>
+          <Route exact path="/students" render={()=> <AllStudents students={students} campuses={campuses} handleStudentDelete={this.handleStudentDelete} />}/>
           <Route path="/students/:studentId" component={SingleStudent}/>
         </Switch>
       </div>

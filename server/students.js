@@ -32,7 +32,7 @@ router.delete('/:studentId', (req, res) => {
   const studentId = req.params.studentId;
   Student.findOne({ where: { id: studentId }})
     .then((student) => {
-      student.destroy()
+      student.destroy();
       res.json(student);
     })
     .catch(err => console.error(err));

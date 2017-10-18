@@ -1,25 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import store from '../store';
-import { removeStudent } from '../reducers/studentReducer';
 
 export default class AllStudents extends React.Component {
 
   constructor(props) {
     super(props);
-    // this.state = store.getState();
-  }
-
-  // componentDidMount() {
-  //   this.unsubscribe = store.subscribe(()=>this.setState(store.getState()))
-  // }
-
-  // componentWillUnmount() {
-  //   this.unsubscribe();
-  // }
-
-  handleDelete(student) {
-    store.dispatch(removeStudent(student));
   }
   
   render() {
@@ -43,7 +29,7 @@ export default class AllStudents extends React.Component {
                   <th>{student.id}</th>
                   <th><Link to={`/students/${student.id}`}>{student.name}</Link></th>
                   <th><Link to={`/campuses/${campus.id}`}>{campus.name}</Link></th>
-                  <th><button onClick={()=>this.handleDelete(student)}>Delete</button></th>
+                  <th><button onClick={()=>this.props.handleStudentDelete(student)}>Delete</button></th>
                 </tr>
               )
             })
