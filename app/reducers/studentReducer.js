@@ -2,10 +2,15 @@ import axios from 'axios';
 
 // ACTION TYPES
 const GET_STUDENTS = 'GET_STUDENTS';
+const DELETE_STUDENT = 'DELETE_STUDENT';
 
 // ACTION CREATORS
 export function getStudents (students) {
   return { type: GET_STUDENTS, students }
+}
+
+export function deleteStudent(student) {
+  return { type: DELETE_STUDENT, student }
 }
 
 // THUNK CREATORS
@@ -18,6 +23,14 @@ export function fetchStudents() {
   }
 }
 
+export function removeStudent(student) {
+  return function thunk(dispatch) {
+    axios.delete(`/api/students/${student.id}`)
+    .then(res=>res.data)
+    .then(deletedStudent => dispatch(deleteStudent(deletedStudent)))
+  }
+} 
+
 // REDUCER
 const studentReducer = function(students = [], action) {
 
@@ -25,10 +38,14 @@ const studentReducer = function(students = [], action) {
 
     case GET_STUDENTS: 
       return action.students;
+    
+    case DELETE_STUDENT:
+      return students.filter((student) => action.student.id !== student.id );
 
-    default: return students;
+    default:
+      return students;
   }
-  
+
 };
 
 export default studentReducer;

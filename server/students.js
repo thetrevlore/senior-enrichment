@@ -30,8 +30,11 @@ router.put('/:studentId', (req, res) => {
 
 router.delete('/:studentId', (req, res) => {
   const studentId = req.params.studentId;
-  Student.destroy({ where: { id: studentId }})
-    .then(() => res.sendStatus(204))
+  Student.findOne({ where: { id: studentId }})
+    .then((student) => {
+      student.destroy()
+      res.json(student);
+    })
     .catch(err => console.error(err));
 });
 
