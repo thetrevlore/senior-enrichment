@@ -3,6 +3,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
+const seed = require('./seed');
 
 const app = express()
 
@@ -36,10 +37,30 @@ if (module === require.main) {
 
   const PORT = 1337
 
-  const db = require('../db')
-  db.sync()
+const db = require('../db')
+db.sync({ force: true })
+  .then(() => {
+    console.log('Seeding databse...');
+    return seed();
+  })
+  .catch(err => {
+    console.log('Error while seeding');
+    console.log(err.stack);
+  })
   .then(() => {
     console.log('db synced')
+    // db.close();
     app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
+    // return null;
   });
 }
+
+//   const db = require('../db')
+//   db.sync({ force: true })
+//   .then(() => {
+//     console.log('Seeding databse...');
+//     return seed();
+//     console.log('db synced')
+//     app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
+//   });
+// }

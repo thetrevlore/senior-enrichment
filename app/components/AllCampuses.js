@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import store from '../store';
-
 
 // export default function AllCampuses(props) {
 //   const campuses = props.campuses;
@@ -32,16 +30,7 @@ export default class AllCampuses extends Component {
 
   constructor(props) {
     super(props);
-    // this.state = store.getState();
   }
-
-  // componentDidMount() {
-  //   this.unsubscribe = store.subscribe(()=>this.setState(store.getState()));
-  // }
-
-  // componentWillUnmount() {
-  //   this.unsubscribe();
-  // }
 
   render() {
     const campuses = this.props.campuses;
