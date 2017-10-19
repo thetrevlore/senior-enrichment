@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import store from '../store';
 
 export default class SingleCampus extends Component {
 
@@ -19,8 +18,7 @@ export default class SingleCampus extends Component {
   render() {
     const campus = this.state.campus;
     const campusStudents = this.props.allStudents.filter((student) => student.campusId === campus.id);
-    const handleStudentCreate = this.props.handleStudentCreate;
-    
+
     return (
       <div>
         <h2>{campus.name}</h2>
