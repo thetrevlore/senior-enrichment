@@ -61,7 +61,6 @@ export default class AllStudents extends React.Component {
                     <th>{student.id}</th>
                     <th><Link to={`/students/${student.id}`}>{student.name}</Link></th>
                     <th><Link to={`/campuses/${campus.id}`}>{campus.name}</Link></th>
-                    <th><button onClick={()=>this.props.handleStudentDelete(student)}>Delete</button></th>
                   </tr>
                 )
               })

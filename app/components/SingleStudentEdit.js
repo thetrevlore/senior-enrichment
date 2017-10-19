@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-export default class SingleStudent extends Component {
+export default class SingleStudentEdit extends Component {
 
   constructor(props) {
     super(props);
@@ -29,7 +29,6 @@ export default class SingleStudent extends Component {
     const routeHistory = this.props.history;
     const allCampuses = this.props.campuses;
 
-
     return (
       <div>
 
@@ -52,8 +51,8 @@ export default class SingleStudent extends Component {
               {
                 allCampuses.map((campus)=>{
                   return studentCampus.id === campus.id
-                  ? <option selected value={campus.id}>{campus.name}</option>
-                  : <option value={campus.id}>{campus.name}</option>
+                  ? <option selected value={campus.id} key={campus.id}>{campus.name}</option>
+                  : <option value={campus.id} key={campus.id}>{campus.name}</option>
                 })
               }
             </select>
@@ -65,7 +64,7 @@ export default class SingleStudent extends Component {
         <br/>
         
         <div>
-          <button onClick={()=>handleStudentDelete(student, routeHistory)}>Delete Member</button>
+          <button onClick={()=>handleStudentDelete(student, routeHistory, student.campusId)}>Delete Member</button>
           <br/>
         </div>
         

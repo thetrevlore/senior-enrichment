@@ -26,14 +26,18 @@ export default class Main extends React.Component {
     this.unsubscribe = store.subscribe(()=>this.setState(store.getState()));
     store.dispatch(fetchCampuses());
     store.dispatch(fetchStudents());
-    // console.log(Router)
   }
 
   componentWillUnmount() {
     this.unsubscribe();
   }
 
-  handleStudentDelete(student) {
+  handleStudentDelete(student, routeHistory, campusId) {
+    store.dispatch(removeStudent(student));
+    routeHistory.push(`/campuses/${campusId}`);
+  }
+
+  handleStudentDeletefromCampus(student) {
     store.dispatch(removeStudent(student));
   }
 
@@ -76,9 +80,9 @@ export default class Main extends React.Component {
           <Route exact path="/" component={Home}/>
           <Route path="/home" component={Home}/>
           <Route exact path="/campuses" render={()=><AllCampuses campuses={campuses} handleCampusDelete={this.handleCampusDelete} handleCampusCreate={this.handleCampusCreate}/>}/>
-          <Route exact path="/campuses/:campusId" render={(props)=><SingleCampus {...props} allStudents={students} handleStudentCreate={this.handleStudentCreate} />}/>
-          <Route exact path="/campuses/:campusId/edit" render={(props)=><SingleCampusEdit {...props} allStudents={students} handleStudentCreate={this.handleStudentCreate} handleStudentDelete={this.handleStudentDelete} handleCampusEdit={this.handleCampusEdit} handleCampusDelete={this.handleCampusDelete}/>}/>
-          <Route exact path="/students" render={()=> <AllStudents students={students} campuses={campuses} handleStudentDelete={this.handleStudentDelete} />}/>
+          <Route exact path="/campuses/:campusId" render={(props)=><SingleCampus {...props} allStudents={students} />}/>
+          <Route exact path="/campuses/:campusId/edit" render={(props)=><SingleCampusEdit {...props} allStudents={students} handleStudentCreate={this.handleStudentCreate} handleStudentDelete={this.handleStudentDeletefromCampus} handleCampusEdit={this.handleCampusEdit} handleCampusDelete={this.handleCampusDelete}/>}/>
+          <Route exact path="/students" render={()=> <AllStudents students={students} campuses={campuses} />}/>
           <Route exact path="/students/:studentId" component={SingleStudent}/>
           <Route exact path="/students/:studentId/edit" render={(props) => <SingleStudentEdit {...props} handleStudentEdit={this.handleStudentEdit} handleStudentDelete={this.handleStudentDelete} campuses={campuses} />}/>
         </Switch>

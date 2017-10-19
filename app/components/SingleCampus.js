@@ -20,6 +20,7 @@ export default class SingleCampus extends Component {
     const campus = this.state.campus;
     const campusStudents = this.props.allStudents.filter((student) => student.campusId === campus.id);
     const handleStudentCreate = this.props.handleStudentCreate;
+    
     return (
       <div>
         <h2>{campus.name}</h2>
