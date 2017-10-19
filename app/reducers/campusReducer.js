@@ -38,7 +38,7 @@ export function removeCampus(campus) {
 
 export function addCampus(campusName) {
   return function thunk(dispatch) {
-    axios.post('/api/campuses', { name: campusName })
+    axios.post('/api/campuses', { name: campusName, image: '/assets/House-Baelish-Main-Shield.png' })
     .then(res=>res.data)
     .then(createdCampus => dispatch(createCampus(createdCampus)))
   }

@@ -60,6 +60,7 @@ export default class AllCampuses extends Component {
             </label>
             <input type='submit' value='Create'/>
           </form>
+          <br/>
       </div>
     )
   }
