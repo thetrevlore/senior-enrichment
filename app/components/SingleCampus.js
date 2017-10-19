@@ -15,9 +15,11 @@ export default class SingleCampus extends Component {
     .then(campus=>this.setState({campus}))
   }
 
+
   render() {
     const campus = this.state.campus;
     const campusStudents = this.props.allStudents.filter((student) => student.campusId === campus.id);
+    const handleStudentCreate = this.props.handleStudentCreate;
     return (
       <div>
         <h2>{campus.name}</h2>
@@ -30,7 +32,20 @@ export default class SingleCampus extends Component {
               return <li key={student.id}><Link to={`/students/${student.id}`}>{student.name}</Link></li>
             })
           }
-        </ul> 
+        </ul>
+        <h1>Create a Member</h1>
+        <form onSubmit={(ev)=>handleStudentCreate(ev, campus.id)}>
+          <label>
+            Name:
+            <input type='text' name='studentName' />
+          </label>
+          <label>
+          Email:
+          <input type='text' name='studentEmail' />
+        </label>
+          <input type='submit' value='Create' />
+        </form>
+        <br/>
       </div>
     )
   }
