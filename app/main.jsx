@@ -46,6 +46,14 @@ export default class Main extends React.Component {
     store.dispatch(addStudent(student));
   }
 
+  handleStudentCreatefromAllStudents(ev) {
+    const name = ev.target.studentName.value;
+    const email = ev.target.studentEmail.value;
+    const campusId = ev.target.studentCampus.value;
+    const student = { name, email, campusId };
+    store.dispatch(addStudent(student));
+  }
+
   handleStudentEdit(ev, studentId) {
     const name = ev.target.studentName.value;
     const email = ev.target.studentEmail.value;
@@ -82,7 +90,7 @@ export default class Main extends React.Component {
           <Route exact path="/campuses" render={()=><AllCampuses campuses={campuses} handleCampusDelete={this.handleCampusDelete} handleCampusCreate={this.handleCampusCreate}/>}/>
           <Route exact path="/campuses/:campusId" render={(props)=><SingleCampus {...props} allStudents={students} />}/>
           <Route exact path="/campuses/:campusId/edit" render={(props)=><SingleCampusEdit {...props} allStudents={students} handleStudentCreate={this.handleStudentCreate} handleStudentDelete={this.handleStudentDeletefromCampus} handleCampusEdit={this.handleCampusEdit} handleCampusDelete={this.handleCampusDelete}/>}/>
-          <Route exact path="/students" render={()=> <AllStudents students={students} campuses={campuses} />}/>
+          <Route exact path="/students" render={(props)=> <AllStudents {...props} students={students} campuses={campuses} handleStudentDelete={this.handleStudentDeletefromCampus} handleStudentCreate={this.handleStudentCreatefromAllStudents} />}/>
           <Route exact path="/students/:studentId" component={SingleStudent}/>
           <Route exact path="/students/:studentId/edit" render={(props) => <SingleStudentEdit {...props} handleStudentEdit={this.handleStudentEdit} handleStudentDelete={this.handleStudentDelete} campuses={campuses} />}/>
         </Switch>
