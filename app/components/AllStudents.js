@@ -77,33 +77,33 @@ export default class AllStudents extends React.Component {
           <br/>
             <div><button onClick={()=>this.setState({isHidden: false})}>Add Member</button></div>
             {!this.state.isHidden &&
-             (
-              <form onSubmit={(ev)=>handleStudentCreate(ev)}>
-                <label>
-                  Name:
-                  <input type='text' name='studentName' />
-                </label>
-    
-                <label>
-                  Email:
-                  <input type='text' name='studentEmail' />
-                </label>
+              (
+                <form onSubmit={(ev)=>handleStudentCreate(ev)}>
+                  <label>
+                    Name:
+                    <input type='text' name='studentName' />
+                  </label>
+      
+                  <label>
+                    Email:
+                    <input type='text' name='studentEmail' />
+                  </label>
 
-                <label>
-                  Member House: 
-                  <select name='studentCampus'>
-                    {
-                      campuses.map((campus)=>{
-                        return <option value={campus.id} key={campus.id}>{campus.name}</option>
-                      })
-                    }
-                  </select>
-                </label>
-    
-                <input type='submit' value='Create Member' />
-              </form>
-            )
-          }
+                  <label>
+                    Member House: 
+                    <select name='studentCampus'>
+                      {
+                        campuses.map((campus)=>{
+                          return <option value={campus.id} key={campus.id}>{campus.name}</option>
+                        })
+                      }
+                    </select>
+                  </label>
+      
+                  <input type='submit' value='Create Member' />
+                </form>
+              )
+            }
           <br/>
         </div>
       )
