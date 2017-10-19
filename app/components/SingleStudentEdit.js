@@ -24,14 +24,38 @@ export default class SingleStudent extends Component {
   render() {
     const student = this.state.student;
     const campus = this.state.studentCampus;
+    const handleStudentEdit = this.props.handleStudentEdit;
+    const handleStudentDelete = this.props.handleStudentDelete;
+    const routeHistory = this.props.history;
+
+
     return (
       <div>
-        <ul><h2>{student.name}</h2>
-          <li><h4>{student.email}</h4></li>
-        </ul>
+
+        <h2>{`Edit ${student.name}'s Info`}</h2>
+        <form onSubmit={(ev)=>handleStudentEdit(ev, student.id)} key={student.id}>
+          <label>
+            Member Name: 
+            <input type='text' name='studentName' defaultValue={student.name} />
+          </label>
+          <label>
+            Member Email: 
+            <input type='text' name='studentEmail' defaultValue={student.email} />
+          </label>
+          <input type='submit' value='Update Member' />
+        </form>
+
+        <br/>
+        
+        <div>
+          <button onClick={()=>handleStudentDelete(student, routeHistory)}>Delete Member</button>
+          <br/>
+        </div>
+        
         <h3>{`${student.name} is a member of `}<Link to={`/campuses/${campus.id}`}>{`${campus.name}`}</Link></h3>
         <Link to={`/campuses/${campus.id}`}><img src={campus.image} alt={campus.name} /></Link>
-        <Link to={`/students/${student.id}/edit`}>Edit Member Info</Link>
+
+        <Link to={`/students/${student.id}`}>Done Editing Member Info</Link>
       </div>
     )
   }

@@ -23,29 +23,20 @@ export default class SingleCampus extends Component {
     return (
       <div>
         <h2>{campus.name}</h2>
-        <img src={campus.image} alt={campus.name} />
-        <h2>Current members of {campus.name}!</h2>
-        <h5>maybe...</h5>
-        <ul>
-          {
-            campusStudents.map((student)=>{
-              return <li key={student.id}><Link to={`/students/${student.id}`}>{student.name}</Link></li>
-            })
-          }
-        </ul>
-        <h1>Create a Member</h1>
-        <form onSubmit={(ev)=>handleStudentCreate(ev, campus.id)}>
-          <label>
-            Name:
-            <input type='text' name='studentName' />
-          </label>
-          <label>
-          Email:
-          <input type='text' name='studentEmail' />
-        </label>
-          <input type='submit' value='Create' />
-        </form>
+          <img src={campus.image} alt={campus.name} />
+          <h2>Current members of {campus.name}!</h2>
+          <h5>maybe...</h5>
+          <ul>
+            {
+              campusStudents.map((student)=>{
+                return <li key={student.id}><Link to={`/students/${student.id}`}>{student.name}</Link></li>
+              })
+            }
+          </ul>
+
         <br/>
+
+        <Link to={`/campuses/${campus.id}/edit`}>Edit Campus Info</Link>
       </div>
     )
   }

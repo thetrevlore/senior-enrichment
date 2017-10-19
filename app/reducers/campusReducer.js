@@ -4,6 +4,7 @@ import axios from 'axios';
 const GET_CAMPUSES = 'GET_CAMPUSES';
 const DELETE_CAMPUS = 'DELETE_CAMPUS';
 const CREATE_CAMPUS = 'CREATE_CAMPUS';
+const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
 
 // ACTION CREATORS
 export function getCampuses (campuses) {
@@ -16,6 +17,10 @@ export function deleteCampus(campus) {
 
 export function createCampus(campus) {
   return { type: CREATE_CAMPUS, campus }
+}
+
+export function updateCampusInfo(campus) {
+  return { type: UPDATE_CAMPUS, campus }
 }
 
 // THUNK CREATORS
@@ -44,6 +49,14 @@ export function addCampus(campusName) {
   }
 }
 
+export function editCampusInfo(campus) {
+  return function thunk(dispatch) {
+    axios.put(`/api/campuses/${campus.id}`, campus)
+    .then(res=>res.data)
+    .then(updatedCampus => dispatch(updateCampusInfo(updatedCampus)))
+  }
+}
+
 // REDUCER
 const campusReducer = function(campuses = [], action) {
 
@@ -57,6 +70,13 @@ const campusReducer = function(campuses = [], action) {
 
     case CREATE_CAMPUS:
       return campuses.concat([action.campus]);
+
+    case UPDATE_CAMPUS:
+      return campuses.map((ogCampus) => {
+        return ogCampus.id === action.campus.id
+        ? Object.assign({}, ogCampus, action.campus)
+        : ogCampus
+      });
 
     default: return campuses;
   }

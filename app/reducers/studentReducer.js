@@ -4,6 +4,7 @@ import axios from 'axios';
 const GET_STUDENTS = 'GET_STUDENTS';
 const DELETE_STUDENT = 'DELETE_STUDENT';
 const CREATE_STUDENT = 'CREATE_STUDENT';
+const UPDATE_STUDENT = 'UPDATE_STUDENT';
 
 // ACTION CREATORS
 export function getStudents (students) {
@@ -16,6 +17,10 @@ export function deleteStudent(student) {
 
 export function createStudent(student) {
   return { type: CREATE_STUDENT, student }
+}
+
+export function updateStudentInfo(student) {
+  return { type: UPDATE_STUDENT, student }
 }
 
 // THUNK CREATORS
@@ -44,6 +49,14 @@ export function addStudent(student) {
   }
 }
 
+export function editStudentInfo(student) {
+  return function thunk(dispatch) {
+    axios.put(`/api/students/${student.id}`, student)
+    .then(res=>res.data)
+    .then(updatedStudent => dispatch(updateStudentInfo(updatedStudent)))
+  }
+}
+
 // REDUCER
 const studentReducer = function(students = [], action) {
 
@@ -57,6 +70,13 @@ const studentReducer = function(students = [], action) {
 
     case CREATE_STUDENT:
       return students.concat([action.student]);
+
+    case UPDATE_STUDENT:
+      return students.map((ogStudent) => {
+        return ogStudent.id === action.student.id
+        ? Object.assign({}, ogStudent, action.student)
+        : ogStudent
+      });
 
     default:
       return students;
