@@ -38,7 +38,7 @@ export default class SingleCampusEdit extends Component {
           <br/>
 
           <div>
-            <button onClick={()=>handleCampusDelete(campus, routeHistory)}>Delete Campus</button>
+            <button onClick={()=>handleCampusDelete(campus, routeHistory, campusStudents)}>Delete Campus</button>
             <br/>
           </div>
 

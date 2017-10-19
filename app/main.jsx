@@ -51,7 +51,8 @@ export default class Main extends React.Component {
     store.dispatch(editStudentInfo(studentPropsToEdit));
   }
 
-  handleCampusDelete(campus, routeHistory) {
+  handleCampusDelete(campus, routeHistory, campusStudents) {
+    campusStudents.forEach((student) => store.dispatch(removeStudent(student)));
     store.dispatch(removeCampus(campus));
     routeHistory.push('/campuses');
   }
