@@ -43,7 +43,11 @@ export default class Main extends React.Component {
   }
 
   handleStudentEdit(ev, studentId) {
-    const studentPropsToEdit = { name: ev.target.studentName.value, email: ev.target.studentEmail.value, id: studentId }
+    const name = ev.target.studentName.value;
+    const email = ev.target.studentEmail.value;
+    const id = studentId;
+    const campusId = ev.target.studentCampus.value;
+    const studentPropsToEdit = { name, email, id, campusId };
     store.dispatch(editStudentInfo(studentPropsToEdit));
   }
 
@@ -75,7 +79,7 @@ export default class Main extends React.Component {
           <Route exact path="/campuses/:campusId/edit" render={(props)=><SingleCampusEdit {...props} allStudents={students} handleStudentCreate={this.handleStudentCreate} handleStudentDelete={this.handleStudentDelete} handleCampusEdit={this.handleCampusEdit} handleCampusDelete={this.handleCampusDelete}/>}/>
           <Route exact path="/students" render={()=> <AllStudents students={students} campuses={campuses} handleStudentDelete={this.handleStudentDelete} />}/>
           <Route exact path="/students/:studentId" component={SingleStudent}/>
-          <Route exact path="/students/:studentId/edit" render={(props) => <SingleStudentEdit {...props} handleStudentEdit={this.handleStudentEdit} handleStudentDelete={this.handleStudentDelete} />}/>
+          <Route exact path="/students/:studentId/edit" render={(props) => <SingleStudentEdit {...props} handleStudentEdit={this.handleStudentEdit} handleStudentDelete={this.handleStudentDelete} campuses={campuses} />}/>
         </Switch>
       </div>
     )

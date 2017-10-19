@@ -23,10 +23,11 @@ export default class SingleStudent extends Component {
 
   render() {
     const student = this.state.student;
-    const campus = this.state.studentCampus;
+    const studentCampus = this.state.studentCampus;
     const handleStudentEdit = this.props.handleStudentEdit;
     const handleStudentDelete = this.props.handleStudentDelete;
     const routeHistory = this.props.history;
+    const allCampuses = this.props.campuses;
 
 
     return (
@@ -34,14 +35,30 @@ export default class SingleStudent extends Component {
 
         <h2>{`Edit ${student.name}'s Info`}</h2>
         <form onSubmit={(ev)=>handleStudentEdit(ev, student.id)} key={student.id}>
+          
           <label>
             Member Name: 
             <input type='text' name='studentName' defaultValue={student.name} />
           </label>
+
           <label>
             Member Email: 
             <input type='text' name='studentEmail' defaultValue={student.email} />
           </label>
+
+          <label>
+            Member House: 
+            <select name='studentCampus'>
+              {
+                allCampuses.map((campus)=>{
+                  return studentCampus.id === campus.id
+                  ? <option selected value={campus.id}>{campus.name}</option>
+                  : <option value={campus.id}>{campus.name}</option>
+                })
+              }
+            </select>
+          </label>
+
           <input type='submit' value='Update Member' />
         </form>
 
@@ -52,8 +69,8 @@ export default class SingleStudent extends Component {
           <br/>
         </div>
         
-        <h3>{`${student.name} is a member of `}<Link to={`/campuses/${campus.id}`}>{`${campus.name}`}</Link></h3>
-        <Link to={`/campuses/${campus.id}`}><img src={campus.image} alt={campus.name} /></Link>
+        <h3>{`${student.name} is a member of `}<Link to={`/campuses/${studentCampus.id}`}>{`${studentCampus.name}`}</Link></h3>
+        <Link to={`/campuses/${studentCampus.id}`}><img src={studentCampus.image} alt={studentCampus.name} /></Link>
 
         <Link to={`/students/${student.id}`}>Done Editing Member Info</Link>
       </div>
