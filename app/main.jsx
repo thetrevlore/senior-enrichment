@@ -9,7 +9,7 @@ import AllStudents from './components/AllStudents';
 import SingleCampus from './components/SingleCampus';
 import SingleStudent from './components/SingleStudent';
 
-import { fetchCampuses, removeCampus } from './reducers/campusReducer';
+import { fetchCampuses, removeCampus, addCampus } from './reducers/campusReducer';
 import { fetchStudents, removeStudent } from './reducers/studentReducer';
 import store from './store';
 
@@ -38,6 +38,10 @@ export default class Main extends React.Component {
     store.dispatch(removeCampus(campus));
   }
 
+  handleCampusCreate(ev) {
+    store.dispatch(addCampus(ev.target.campusName.value))
+  }
+
   render() {
     const students = this.state.students;
     const campuses = this.state.campuses;
@@ -47,7 +51,7 @@ export default class Main extends React.Component {
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path="/home" component={Home}/>
-          <Route exact path="/campuses" render={()=><AllCampuses campuses={campuses} handleCampusDelete={this.handleCampusDelete}/>}/>
+          <Route exact path="/campuses" render={()=><AllCampuses campuses={campuses} handleCampusDelete={this.handleCampusDelete} handleCampusCreate={this.handleCampusCreate}/>}/>
           <Route path="/campuses/:campusId" render={(props)=><SingleCampus {...props} allStudents={students} />}/>
           <Route exact path="/students" render={()=> <AllStudents students={students} campuses={campuses} handleStudentDelete={this.handleStudentDelete} />}/>
           <Route path="/students/:studentId" component={SingleStudent}/>

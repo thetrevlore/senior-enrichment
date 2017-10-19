@@ -38,10 +38,10 @@ if (module === require.main) {
   const PORT = 1337
 
 const db = require('../db')
-db.sync({ force: true })
+db.sync()
   .then(() => {
     console.log('Seeding databse...');
-    return seed();
+    // return seed();
   })
   .catch(err => {
     console.log('Error while seeding');

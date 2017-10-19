@@ -35,11 +35,11 @@ export default class AllCampuses extends Component {
   render() {
     const campuses = this.props.campuses;
     const handleCampusDelete = this.props.handleCampusDelete;
+    const handleCampusCreate = this.props.handleCampusCreate;
     
     return (
       <div>
         <h1>AllCampuses</h1>
-        <ul>
         <tbody>
           {
             campuses.map((campus)=>{
@@ -52,7 +52,14 @@ export default class AllCampuses extends Component {
             })
           }
           </tbody>
-        </ul>
+          <h1>Create a House</h1>
+          <form onSubmit={(ev)=>handleCampusCreate(ev)}>
+            <label>
+              Name:
+              <input type='text' name='campusName'/>
+            </label>
+            <input type='submit' value='Create'/>
+          </form>
       </div>
     )
   }
