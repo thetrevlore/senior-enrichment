@@ -20,10 +20,10 @@ export default class SingleCampus extends Component {
     const campusStudents = this.props.allStudents.filter((student) => student.campusId === campus.id);
     return (
       <div>
-        <ul><h2>{campus.name}</h2>
-          <li><h3>{campus.image}</h3></li>
-        </ul>
-        <h2>Students that go to {campus.name}! </h2>
+        <h2>{campus.name}</h2>
+        <img src={campus.image} alt={campus.name} />
+        <h2>Current members of {campus.name}!</h2>
+        <h5>maybe...</h5>
         <ul>
           {
             campusStudents.map((student)=>{

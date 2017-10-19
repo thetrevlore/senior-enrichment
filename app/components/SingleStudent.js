@@ -29,7 +29,8 @@ export default class SingleStudent extends Component {
         <ul><h2>{student.name}</h2>
           <li><h4>{student.email}</h4></li>
         </ul>
-        <h3>{`${student.name} goes to `}<Link to={`/campuses/${campus.id}`}>{`${campus.name}!`}</Link></h3>
+        <h3>{`${student.name} is a member of `}<Link to={`/campuses/${campus.id}`}>{`${campus.name}`}</Link></h3>
+        <Link to={`/campuses/${campus.id}`}><img src={campus.image} alt={campus.name} /></Link>
       </div>
     )
   }

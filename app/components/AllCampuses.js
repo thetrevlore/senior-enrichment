@@ -45,7 +45,7 @@ export default class AllCampuses extends Component {
             campuses.map((campus)=>{
               return (
                 <tr key={campus.id}>
-                  <th><Link to={`/campuses/${campus.id}`}>{campus.name}</Link></th>
+                  <th><Link to={`/campuses/${campus.id}`}><img src={campus.image} alt={campus.name} /></Link></th>
                   <th><button onClick={()=>handleCampusDelete(campus)}>Delete Campus</button></th>
                 </tr>
               )

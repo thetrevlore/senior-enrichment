@@ -2,16 +2,16 @@ const { Campus, Student } = require('../db/models/index');
 
 const campuses = [{
   name: 'House Lannister',
-  image: '../public/assets/House-Lannister-Main-Shield.png'
+  image: '/assets/House-Lannister-Main-Shield.png'
 }, {
   name: 'House Stark',
-  image: '../public/assets/House-Stark-Main-Shield.png'
+  image: '/assets/House-Stark-Main-Shield.png'
 }, {
   name: 'House Targaryen',
-  image: '../public/assets/House-Targaryen-Main-Shield.png'
+  image: '/assets/House-Targaryen-Main-Shield.png'
 }, {
   name: 'House Tarly',
-  image: '../public/assets/House-Tarly-Main-Shield.png'
+  image: '/assets/House-Tarly-Main-Shield.png'
 }];
 
 const students = [
