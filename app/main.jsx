@@ -42,11 +42,13 @@ export default class Main extends React.Component {
   }
 
   handleStudentCreate(ev, campusId) {
+    ev.preventDefault();
     const student = { name: ev.target.studentName.value, email: ev.target.studentEmail.value, campusId };
     store.dispatch(addStudent(student));
   }
 
   handleStudentCreatefromAllStudents(ev) {
+    ev.preventDefault();
     const name = ev.target.studentName.value;
     const email = ev.target.studentEmail.value;
     const campusId = ev.target.studentCampus.value;
@@ -55,6 +57,7 @@ export default class Main extends React.Component {
   }
 
   handleStudentEdit(ev, studentId) {
+    // ev.preventDefault(); // Need to implement better before this will work right.
     const name = ev.target.studentName.value;
     const email = ev.target.studentEmail.value;
     const id = studentId;
@@ -70,10 +73,12 @@ export default class Main extends React.Component {
   }
 
   handleCampusCreate(ev) {
+    ev.preventDefault();
     store.dispatch(addCampus(ev.target.campusName.value));
   }
 
   handleCampusEdit(ev, campusId) {
+    // ev.preventDefault(); // Need to implement better before this will work right.
     const campusPropsToEdit = { name: ev.target.campusName.value, id: campusId }
     store.dispatch(editCampusInfo(campusPropsToEdit));
   }
@@ -81,13 +86,14 @@ export default class Main extends React.Component {
   render() {
     const students = this.state.students;
     const campuses = this.state.campuses;
+    
     return (
       <div>
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path="/home" component={Home}/>
-          <Route exact path="/campuses" render={()=><AllCampuses campuses={campuses} handleCampusDelete={this.handleCampusDelete} handleCampusCreate={this.handleCampusCreate}/>}/>
+          <Route exact path="/campuses" render={()=><AllCampuses campuses={campuses} handleCampusCreate={this.handleCampusCreate}/>}/>
           <Route exact path="/campuses/:campusId" render={(props)=><SingleCampus {...props} allStudents={students} />}/>
           <Route exact path="/campuses/:campusId/edit" render={(props)=><SingleCampusEdit {...props} allStudents={students} handleStudentCreate={this.handleStudentCreate} handleStudentDelete={this.handleStudentDeletefromCampus} handleCampusEdit={this.handleCampusEdit} handleCampusDelete={this.handleCampusDelete}/>}/>
           <Route exact path="/students" render={(props)=> <AllStudents {...props} students={students} campuses={campuses} handleStudentDelete={this.handleStudentDeletefromCampus} handleStudentCreate={this.handleStudentCreatefromAllStudents} />}/>

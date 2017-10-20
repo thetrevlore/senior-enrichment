@@ -38,10 +38,10 @@ if (module === require.main) {
   const PORT = 1337
 
 const db = require('../db')
-db.sync()
+db.sync({force:true})
   .then(() => {
     console.log('Seeding databse...');
-    // return seed();
+    return seed();
   })
   .catch(err => {
     console.log('Error while seeding');
@@ -49,18 +49,6 @@ db.sync()
   })
   .then(() => {
     console.log('db synced')
-    // db.close();
     app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
-    // return null;
   });
 }
-
-//   const db = require('../db')
-//   db.sync({ force: true })
-//   .then(() => {
-//     console.log('Seeding databse...');
-//     return seed();
-//     console.log('db synced')
-//     app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
-//   });
-// }

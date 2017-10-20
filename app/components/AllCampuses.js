@@ -9,7 +9,6 @@ export default class AllCampuses extends Component {
 
   render() {
     const campuses = this.props.campuses;
-    const handleCampusDelete = this.props.handleCampusDelete;
     const handleCampusCreate = this.props.handleCampusCreate;
     
     return (
